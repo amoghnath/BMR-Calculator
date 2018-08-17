@@ -1,0 +1,145 @@
+<html>
+<!--HEAD-->
+ <head><title>BMR Calculator</title>
+  <link rel="stylesheet" type="text/css" href="BMRgit.css" />
+ </head>
+<!--BODY-->
+<body>
+
+<script>
+
+var BMR = 0;
+function computeBMR(event) {
+	event.preventDefault();
+	var metric = document.getElementById("bmr_input_one");
+	var imperial = document.getElementById("bmr_input_two");
+	var age = parseInt(document.getElementById("bmr_age_input").value);
+	var male = document.getElementById("bmr_gender_male");
+	var female = document.getElementById("bmr_gender_female");
+	var height = parseInt(document.getElementById("height_input").value);
+	var weight = parseInt(document.getElementById("weight_input").value); 
+   
+   document.getElementById("bmrresponse").style.display = "block";
+	
+	var met = metric.value;
+	var imper = imperial.value;
+	var age_years = age.value;
+	var male_human = male.value;
+	var female_human = female.value;
+	var height_body = height.value;
+	var weight_body = weight.value;
+
+	if(isNaN(height) || isNaN(weight) || isNaN(age)){
+		alert("Please enter your height, weight and age");
+		return false;
+		}
+
+		
+	if(document.getElementById("bmr_gender_male").checked && document.getElementById("bmr_input_one").checked){
+					BMR = 66 + 6.2 * document.getElementById("weight_input").value + 12.7 * document.getElementById("height_input").value - 6.76 * document.getElementById("bmr_age_input").value 
+					}
+					
+	if(document.getElementById("bmr_gender_female").checked && document.getElementById("bmr_input_one").checked){
+                    BMR = 655.1 + 4.35 * document.getElementById("weight_input").value + 4.7 * document.getElementById("height_input").value - 4.7 * document.getElementById("bmr_age_input").value 
+					}
+
+    if(document.getElementById("bmr_gender_male").checked && document.getElementById("bmr_input_two").checked){
+	                BMR = 66.5 + 13.75 * document.getElementById("weight_input").value + 5.003 * document.getElementById("height_input").value - 6.755 * document.getElementById("bmr_age_input").value 
+					}
+
+    if(document.getElementById("bmr_gender_female").checked && document.getElementById("bmr_input_two").checked){
+	                BMR = 655.1 + 9.563 * document.getElementById("weight_input").value + 1.850 * document.getElementById("height_input").value - 4.676 * document.getElementById("bmr_age_input").value
+					}					
+
+	//DISPLAY RESULT
+	document.getElementById("bmr_output").innerText = BMR.toFixed('1') + " Calories / per day";
+}
+				
+				
+		function alterRadio(){
+			var metrics = {
+				imper: {
+					heightunits: "Inches"
+				},
+				meter: {
+					heightunits: "Centimetres"
+				}
+			}
+			
+			var imperial = {
+				impers: {
+					weightunits: "Pounds"
+				},
+				meters: {
+					weightunits: "Kilograms"
+				}
+			}		
+//radio buttons function 
+			if (document.getElementById("bmr_input_one").checked) {
+				document.getElementById("bmr_height_units").innerText = metrics.imper.heightunits; 
+				document.getElementById("bmr_weight_units").innerText = imperial.impers.weightunits; }
+				
+				
+				
+			
+			if (document.getElementById("bmr_input_two").checked) {
+				document.getElementById("bmr_height_units").innerText = metrics.meter.heightunits;
+				document.getElementById("bmr_weight_units").innerText = imperial.meters.weightunits;
+			     }
+				  }	
+				 
+		
+</script>
+<h1 class="Mainheading">Basal Metabolic Rate(BMR)</h1>
+<!--BMR Calculator-->	
+<div class="parent">
+
+<div class="layout">
+<h2 class="instruction">Fill in the values and click on 'Calculate' :</h2>
+
+<!--input(radio)-->
+<center>
+ <input type="radio" name="system" id="bmr_input_one" checked="checked" onchange="alterRadio()"><label class="imp_list_1" id="bmr_imperial" for="bmr_input_one">Imperial System</label></input>&nbsp&nbsp|&nbsp&nbsp
+ <input type="radio" name="system" id="bmr_input_two" onchange="alterRadio()"><label class="met_list_1" id="bmr_metric" for="bmr_input_two">Metric System</label for="bmr_metric"></input>
+</center>
+
+<br><hr class="hr1"
+
+<!--Age input-->
+<font class="age">Age: </font><input type="number" min="0" id="bmr_age_input" class="age_input"/>
+
+<br><br>
+
+<!--Gender-->
+<font class="age">Gender: </font>
+<input type="radio" name="gender" id="bmr_gender_male" checked="checked"><label class="male_list_2" id="bmr_male" for="bmr_gender_male">Male</label></input>
+&nbsp
+<input type="radio" name="gender" id="bmr_gender_female"<!--fill____up--><label class="female_list_3" id="bmr_female" for="bmr_gender_female">Female</label></input>
+
+<br><br>
+
+<!--Height-->
+<font class="age">Height: </font>
+<input type="number" min="0" class="height" id="height_input" />
+<span class="heightunits" id="bmr_height_units">Inches</span>
+<br><br>
+<!--weight-->
+<font class="age">Weight: </font>
+<input type="number" min="0" class="weight" id="weight_input" />
+<span class="weightunits" id="bmr_weight_units">Pounds</span>
+
+<br><br>
+
+<!--calculate button-->
+<input type="submit" id="bmr_calculate" value="Calculate" class="BMRbutton" onclick="computeBMR(event)"; />
+</div><br>
+<div id="bmrresponse" class="bmr-response">
+<h2 class="result">Result:</h2>
+<h1 class="bnn">BMR : <span id="bmr_output" class="output"></span></h1>
+</div> 
+<br>
+ 
+</body>
+</html>
+
+ 
